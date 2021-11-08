@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
+// ./src/App.js
+
+import React, { Component } from "react";
+import { connect } from "react-redux"; 
+
+import "./App.css";
 
 class App extends Component {
+
 	handleOnClick = () => {
-		this.props.store.dispatch({
-			type: 'INCREASE_COUNT',
+		this.props.dispatch({
+		  type: "INCREASE_COUNT",
 		});
 	}
 
@@ -12,10 +17,14 @@ class App extends Component {
 		return (
 			<div className="App">
 				<button onClick={this.handleOnClick}>Click</button>
-				<p>{this.props.store.getState().clicks}</p>
+				<p>{this.props.clicks}</p>
 			</div>
 		);
 	}
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return { clicks: state.clicks };
+};
+  
+export default connect(mapStateToProps)(App);
